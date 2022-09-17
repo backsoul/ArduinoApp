@@ -1,20 +1,38 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar color="dark">
     <ion-title>
-      Blank
+      Arduino
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content padding>
+  <button ion-button full class="submit-button" (click)="listPairedDevices()">
+    <ion-icon name="refresh"></ion-icon>&nbsp;Refresh Bluetooth Devices
+  </button>
+  <ion-row>
+    <ion-col>
+      <ion-list radio-group [(ngModel)]="pairedDeviceID" *ngIf="listToggle">
+        <ion-item *ngFor="let i of pairedList;let j=index">
+          <ion-label>{{ i.name }}</ion-label>
+          <ion-radio value="{{ j }}"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+  <button ion-button full class="submit-button" *ngIf="listToggle" (click)="selectDevice()">
+    <ion-icon name="bluetooth"></ion-icon>&nbsp;Connect Bluetooth Devices
+  </button>
+  <ion-list>
+    <ion-item>
+      <button ion-button full class="submit-button" (click)="sendData(true)">
+        Encender led
+      </button>
+    </ion-item>
+    <ion-item>
+      <button ion-button full class="submit-button" (click)="sendData(false)">
+        Apagar led
+      </button>
+    </ion-item>
+  </ion-list>
 </ion-content>
